@@ -12,14 +12,16 @@ struct GraphNode {
     int priv;
     int temp;
     int clean;
+    int avgoverall;
     bool bath;
     vector<pair<GraphNode*, int>> neighbors; // lists all connected nodes and edge weight
-    GraphNode (string name, int priv, int temp, int clean, bool bath) {
+    GraphNode (string name, int priv, int temp, int clean, int avgoverall, bool bath) {
         this->name = name;
         this->priv = priv;
         this->temp = temp;
         this-> clean = clean;
         this->bath = bath;
+        this->avgoverall = avgoverall;
     }
 };
 
@@ -32,12 +34,12 @@ struct Graph {
         size = 0;
     }
 
-    void AddNode(string name, int priv, int temp, int clean, bool bath) {
+    void AddNode(string name, int priv, int temp, int clean, int avgoverall, bool bath) {
         if (nodes[name] != nullptr) { // no duplicate names
             return;
         }
         names.push_back(name);
-        nodes[name] = new GraphNode(name, priv, temp, clean, bath);
+        nodes[name] = new GraphNode(name, priv, temp, clean, avgoverall, bath);
         size++;
     }
 
