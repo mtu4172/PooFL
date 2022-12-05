@@ -55,4 +55,58 @@ struct Graph {
             }
         }
     }
+    void DesiredRating(string type, int rating) //checks rating type, rating, and if it is a bathroom
+    {
+        vector<string> listN;
+        if(type == "Cleaniness") {
+            for(int i = 0; i < names.size();i++) {
+                if(nodes[names[i]]->bath == true && nodes[names[i]]->clean > rating) {
+                    listN.push_back(names[i]);
+                }
+            }
+
+            for(auto it:listN) {
+                cout << it << " ";
+            }
+        }
+
+        if(type == "Privacy")
+        {
+            for(int i = 0; i < names.size();i++) {
+                if(nodes[names[i]]->bath == true && nodes[names[i]]->priv > rating) {
+                    listN.push_back(names[i]);
+                }
+            }
+
+            for(auto it:listN) {
+                cout << it << " ";
+            }
+        }
+
+        if(type == "Temperature")
+        {
+            for(int i = 0; i < names.size();i++) {
+                if(nodes[names[i]]->bath == true && nodes[names[i]]->temp > rating) {
+                    listN.push_back(names[i]);
+                }
+            }
+
+            for(auto it:listN) {
+                cout << it << " ";
+            }
+        }
+
+        if(type == "Overall")
+        {
+            for(int i = 0; i < names.size();i++) {
+                if(nodes[names[i]]->bath == true && nodes[names[i]]->avgoverall > rating) {
+                    listN.push_back(names[i]);
+                }
+            }
+
+            for(auto it:listN) {
+                cout << it << " ";
+            }
+        }
+    }
 };
