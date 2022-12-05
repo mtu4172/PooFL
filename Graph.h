@@ -7,27 +7,26 @@
 
 using namespace std;
 
-struct Node {
+struct GraphNode {
     string name;
     int priv;
     int temp;
     int clean;
-    int avg;
     bool bath;
-    vector<pair<Node*, int>> neighbors; // lists all connected nodes and edge weight
-    Node (string name, int priv, int temp, int clean, int avg, bool bath) {
+    vector<pair<GraphNode*, int>> neighbors; // lists all connected nodes and edge weight
+    GraphNode (string name, int priv, int temp, int clean, bool bath) {
         this->name = name;
         this->priv = priv;
         this->temp = temp;
         this-> clean = clean;
         this->bath = bath;
-        this->avg = avg;
     }
 };
 
 struct Graph {
-    unordered_map<string, Node*> nodes; // map of names to nodes (easier searching)
+    unordered_map<string, GraphNode*> nodes; // map of names to nodes (easier searching)
     vector<string> names; // just a list of names
+
     int size;
     Graph() {
         size = 0;
@@ -38,7 +37,7 @@ struct Graph {
             return;
         }
         names.push_back(name);
-        nodes[name] = new Node(name, priv, temp, clean, bath);
+        nodes[name] = new GraphNode(name, priv, temp, clean, bath);
         size++;
     }
 

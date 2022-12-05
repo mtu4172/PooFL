@@ -1,9 +1,11 @@
 #include <iostream>
+#include <fstream>
 #include "Graph.h"
+#include "Trie.h"
 
 int main() {
     Graph g;
-   ifstream theFile("DSAProject3Data.csv");
+    ifstream theFile("DSAProject3Data.csv");
 	if (theFile.is_open())
 	{
 		string firstLine;
