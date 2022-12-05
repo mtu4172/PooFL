@@ -12,14 +12,16 @@ struct Node {
     int priv;
     int temp;
     int clean;
+    int avg;
     bool bath;
     vector<pair<Node*, int>> neighbors; // lists all connected nodes and edge weight
-    Node (string name, int priv, int temp, int clean, bool bath) {
+    Node (string name, int priv, int temp, int clean, int avg, bool bath) {
         this->name = name;
         this->priv = priv;
         this->temp = temp;
         this-> clean = clean;
         this->bath = bath;
+        this->avg = avg;
     }
 };
 
