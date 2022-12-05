@@ -55,7 +55,7 @@ struct Graph {
             }
         }
     }
-    void DesiredRating(string type, int rating) //checks rating type, rating, and if it is a bathroom
+    vector<string> DesiredRating(string type, int rating) //checks rating type, rating, and if it is a bathroom
     {
         vector<string> listN;
         if(type == "Cleaniness") {
@@ -63,10 +63,6 @@ struct Graph {
                 if(nodes[names[i]]->bath == true && nodes[names[i]]->clean > rating) {
                     listN.push_back(names[i]);
                 }
-            }
-
-            for(auto it:listN) {
-                cout << it << " ";
             }
         }
 
@@ -77,10 +73,6 @@ struct Graph {
                     listN.push_back(names[i]);
                 }
             }
-
-            for(auto it:listN) {
-                cout << it << " ";
-            }
         }
 
         if(type == "Temperature")
@@ -89,10 +81,6 @@ struct Graph {
                 if(nodes[names[i]]->bath == true && nodes[names[i]]->temp > rating) {
                     listN.push_back(names[i]);
                 }
-            }
-
-            for(auto it:listN) {
-                cout << it << " ";
             }
         }
 
@@ -103,10 +91,7 @@ struct Graph {
                     listN.push_back(names[i]);
                 }
             }
-
-            for(auto it:listN) {
-                cout << it << " ";
-            }
         }
+        return listN;
     }
 };
