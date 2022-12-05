@@ -3,16 +3,55 @@
 
 int main() {
     Graph g;
-    g.AddNode("Pugh", 0, 0, 0, true);
-    g.AddNode("Turlington", 1, 1, 1, false);
-    g.AddNode("Marston", 1, 0, 1, true);
-    g.AddNode("Reitz", 1, 0, 1, true);
-    g.AddNode("Graham", 1, 0, 1, true);
-    g.AddNode("Carleton", 1, 0, 1, true);
-    g.AddNode("Fine Arts", 1, 0, 1, true);
-    g.AddNode("Rolf", 1, 0, 1, true);
-    g.AddNode("Smathers", 1, 0, 1, true);
-    g.AddEdges(5);
+   ifstream theFile("DSAProject3Data.csv");
+	if (theFile.is_open())
+	{
+		string firstLine;
+		getline(theFile, firstLine, '\r');
+
+		for (int i = 0; i < 100000; i++)
+		{
+			getline(theFile, firstLine, '\r');
+			istringstream stream1(firstLine);
+
+			int cleany;
+			int privacy;
+			int temp2;
+			int overall;
+			int br;
+
+			string namer;
+			string name2;
+			string clean1;
+			string privacy1;
+			string temp1;
+			string overall1;
+			string br1;
+			bool br2 = false;
+
+			getline(stream1, namer, ',');
+			getline(stream1, namer, ',');
+			getline(stream1, name2, ',');
+			namer.append(" ").append(name2);
+			getline(stream1, clean1, ',');
+			cleany = stoi(clean1);
+			getline(stream1, privacy1, ',');
+			privacy = stoi(privacy1);
+			getline(stream1, temp1, ',');
+			temp2 = stoi(temp1);
+			getline(stream1, overall1, ',');
+			overall = stoi(overall1);
+			getline(stream1, br1, ',');
+			br = stoi(br1);
+
+			if (br == 1)
+				br2 = true;
+
+			g.AddNode(namer, privacy, temp2, cleany, overall, br2);
+		}
+
+	}
+	theFile.close();
     for (const auto& iter : g.nodes) {
         cout << iter.first << ": ";
         for (auto it : iter.second->neighbors)
