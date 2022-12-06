@@ -56,7 +56,7 @@ int Dijktras(string source_, string destination_, int max)
     alreadyVisited.insert(source); //insert into set 
     int totalDistance = 0;
     bool found = false;
-    while(found == false && max > totalDistance && this->GetSize() < (100000/200)) //go through entire graph
+    while(found == false && max > totalDistance && alreadyVisited.size() < (100000/max)) //go through entire graph
     {
         GraphNode* leastEdge = SmallestEdge(source->neighbors, alreadyVisited, totalDistance);
         path.push_back(leastEdge->name);
@@ -76,7 +76,7 @@ int Dijktras(string source_, string destination_)
     alreadyVisited.insert(source); //insert into set 
     int totalDistance = 0;
     bool found = false;
-    while(found == false && this->GetSize() < (100000/200)) //go through entire graph
+    while(found == false && (this->GetSize() < (100000/200))) //go through entire graph
     {
         GraphNode* leastEdge = SmallestEdge(source->neighbors, alreadyVisited, totalDistance);
         path.push_back(leastEdge->name);
