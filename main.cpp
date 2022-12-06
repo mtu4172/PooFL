@@ -65,14 +65,14 @@ int main() {
 	cout << "Welcome to PooFL! " << endl;
 	cout << "What would you like to do?" << endl;
 	cout << "1. Find the closest bathroom to me based off my needs - Dijkstra" << endl;
-	cout << "2. Find the closest bathroom to me based off my needs - Bellman's Ford" << endl;
+	cout << "2. Find the closest bathroom to me based off my needs - Bellman-Ford" << endl;
 	int choice;
 	cin >> choice;
 		cout << "Please Enter Your Current Location: " << endl;
 		string location;
 		cin >> location;
 		cout << "What aspect of a bathroom is most important to you?" << endl;
-		cout << "1. Cleaniness" << endl;
+		cout << "1. Cleanliness" << endl;
 		cout << "2. Privacy" << endl;
 		cout << "3. Temperature" << endl;
 		cout << "4. All" << endl;
@@ -82,9 +82,9 @@ int main() {
 		vector<string> desiredbathrooms;
 		if (pref1 == 1)
 		{
-			cout << "What is your desired quality rating for the Cleaniness(1-100)?" << endl;
+			cout << "What is your desired quality rating for the Cleanliness(1-100)?" << endl;
 			cin >> rating;
-			desiredbathrooms = g.DesiredRating("Cleaniness", rating);
+			desiredbathrooms = g.DesiredRating("Cleanliness", rating);
 		}
 		if (pref1 == 2)
 		{
