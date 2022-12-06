@@ -1,11 +1,20 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iterator>
+#include <algorithm>
+#include <chrono>
+#include <stdio.h>
+#include <stdlib.h>
 #include "Graph.h"
 #include "Trie.h"
+using namespace std::chrono;
 
 int main() {
-    Graph g;
+	//initialize the graph object
+    Graph g; 
+
+	//read data from file
     ifstream theFile("DSAProject3Data.csv");
 	if (theFile.is_open())
 	{
@@ -52,77 +61,174 @@ int main() {
 
 			g.AddNode(namer, privacy, temp2, cleany, overall, br2);
 		}
-
+		g.AddEdges(50);
 	}
-	theFile.close();
-    /*for (const auto& iter : g.nodes) {
-        cout << iter.first << ": ";
-        for (auto it : iter.second->neighbors)
-            cout << it.first->name <<" " << it.second<< "  ";
-        cout << endl;
-    }*/
-	
-	
+
+	//menu asking what selection you want
 	cout << "Welcome to PooFL! " << endl;
-	cout << "What would you like to do?" << endl;
-	cout << "1. Find the closest bathroom to me based off my needs" << endl;
-	cout << "2. Search for a specific bathroom" << endl;
-	int choice;
-	cin >> choice;
-    if (choice == 1) {
-        cout << "Please Enter Your Current Location: " << endl;
-        string location;
-        cin >> location;
-        cout << "What aspect of a bathroom is most important to you?" << endl;
-        cout << "1. Cleaniness" << endl;
-        cout << "2. Privacy" << endl;
-        cout << "3. Temperature" << endl;
-        cout << "4. All" << endl;
-        int pref1;
-        cin >> pref1;
-        int rating;
-        vector<string> desiredbathrooms;
-        if (pref1 == 1) {
-            cout << "What is your desired quality rating for the Cleaniness(1-100)?" << endl;
-            cin >> rating;
-            desiredbathrooms = g.DesiredRating("Cleaniness", rating);
-        }
-        if (pref1 == 2) {
-            cout << "What is your desired quality rating for the Privacy(1-100)?" << endl;
-            cin >> rating;
-            desiredbathrooms = g.DesiredRating("Privacy", rating);
-        }
-        if (pref1 == 3) {
-            cout << "What is your desired quality rating for the Temperature(1-100)?" << endl;
-            cin >> rating;
-            desiredbathrooms = g.DesiredRating("Temperature", rating);
-        }
-        if (pref1 == 4) {
-            cout << "What is your desired Overall quality rating(1-100)?" << endl;
-            cin >> rating;
-            desiredbathrooms = g.DesiredRating("Overall", rating);
-        }
 
+	//this will ask you what data structure/algorithm you'd like to use
+	cout << "What method would you like to use?" << endl;
+	cout << "(1) Graph" << endl;
+	cout << "(2) Trie" << endl;
 
-        if (desiredbathrooms.size() == 0)
-            cout << "There are no bathrooms nearby that align with your preferences." << endl;
-        else {
-            cout << "These are the closest locations with bathrooms that satisfy your desired preferences!" << endl;
-            for (int j = 0; j < desiredbathrooms.size(); j++) {
-                cout << desiredbathrooms[j] << endl;
-            }
-        }
-    }
-    if (choice == 2) {
-        string word;
-        cout << "Please enter a one word." << endl;
+	//takes in input
+	int typeOfDataStructure;
+	cin >> typeOfDataStructure;
+
+	
+	if(typeOfDataStructure == 1)
+	{
+		//which aspect is most important to you?
+		cout << "What aspect of a bathroom is most important to you?" << endl;
+		cout << "---------------------------------------------------" << endl;
+		cout << "1. Cleaniness (A clean bathroom is important!)" << endl;
+		cout << "2. Privacy (Everyone wants their privacy! Go YOU!)" << endl;
+		cout << "3. Temperature (No one likes an icky bathroom!)" << endl;
+		cout << "4. All (You have a lot of demands don't you...)" << endl;
+		cout << endl;
+
+		int selection;
+		cin >> selection;
+
+		cout << "Please input a minimum rating(0-100): ";
+		int rating;
+
+		cin >> rating;
+		cout << endl;
+
+		int rating2 = rating;
+
+		//prompts user for maximum distance;
+		cout << "Please enter a maximum distance: ";
+		int maxDist;
+		cin >> maxDist;
+		cout << endl;
+	
+		vector<string> bathrooms;
+		bathrooms = g.DesiredRating(selection, rating2);
+
+		//this will start the timer
+		auto start = high_resolution_clock::now();
+
+		//Clean
+		if(selection == 1)
+		{
+			for(auto it : bathrooms)
+			{
+				int distance = g.Dijktras("GENDER COMMONS", it, maxDist);
+				if (distance < maxDist)
+				{
+					cout << it << endl;
+					for(int i = 0; i < it.size(); i++) cout << "-";
+					cout << endl;
+					cout << "Distance: " << distance << endl;
+					cout << "Rating: " << g.nodes[it]->clean << endl;
+					cout << "Overall: " << g.nodes[it]->avgoverall << endl;
+					cout << endl;
+				}
+			}
+		}
+
+		//Privacy
+		if(selection == 2)
+		{
+			for(auto it:bathrooms)
+			{
+				int distance = g.Dijktras("GENDER COMMONS", it, maxDist);
+				if (distance < maxDist)
+				{
+					cout << it << endl;
+					for(int i = 0; i < it.size(); i++) cout << "-";
+					cout << endl;
+					cout << "Distance: " << distance << endl;
+					cout << "Rating: " << g.nodes[it]->priv << endl;
+					cout << "Overall: " << g.nodes[it]->avgoverall << endl;
+					cout << endl;
+				}
+			}
+		}
+
+		//Temperature
+		if(selection == 3)
+		{
+		
+			for(auto it:bathrooms)
+			{
+				int distance = g.Dijktras("GENDER COMMONS", it, maxDist);
+				if (distance < maxDist)
+				{
+				cout << it << endl;
+				for(int i = 0; i < it.size(); i++) cout << "-";
+				cout << endl;
+				cout << "Distance: " << distance << endl;
+				cout << "Rating: " << g.nodes[it]->priv << endl;
+				cout << "Overall: " << g.nodes[it]->avgoverall << endl;
+				cout << endl;
+				}
+			}
+		}
+
+		//Overall
+		if(selection == 4)
+		{
+		
+			for(auto it:bathrooms)
+			{
+				int distance = g.Dijktras("GENDER COMMONS", it, maxDist);
+				if(distance < maxDist)
+				{
+				cout << it << endl;
+				for(int i = 0; i < it.size(); i++) cout << "-";
+				cout << endl;
+				cout << "Distance: " << distance << endl;
+				cout << "Rating: " << g.nodes[it]->priv << endl;
+				cout << "Overall: " << g.nodes[it]->avgoverall << endl;
+				cout << endl;
+				}
+			}
+		}
+
+		auto stop = high_resolution_clock::now();
+		auto duration = duration_cast<microseconds>(stop - start);
+
+		cout << "Here are your options! We hope you enjoy your experience." << endl;
+		cout << "Time Taken: " << duration.count() << " microseconds" << endl;
+	}
+
+	//Trie
+	else
+	{
+		string word;
+
+        cout << "Please enter one word." << endl;
         cout << "Search query: " << endl;
+
         cin >> word;
+
         vector<string> bathrooms = g.trie.prefix(word);
-        for (auto iter : bathrooms) {
+		auto start = high_resolution_clock::now();
+
+        for (auto iter : bathrooms)
+		{
             cout << iter << endl;
         }
-    }
 
+		auto stop = high_resolution_clock::now();
+
+		cout << "Here is a list based off of your input. Which bathroom would you like a path to: " << endl;
+		string word2;
+		cin>>word2;
+
+		cout << "You selected " << endl;
+		cout << word2;
+		cout << endl;
+
+		for(int i = 0; i < word2.size(); i++) cout << "-";
+		cout << endl;
+
+		auto duration = duration_cast<microseconds>(stop - start);
+		cout << "Time Taken: " << duration.count() << " microseconds" << endl;
+	}
     return 0;
 }
