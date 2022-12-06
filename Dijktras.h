@@ -25,7 +25,7 @@ int Dijktras(Graph* g, string source_, string destination_)
     
     if(found == false)
     {
-        cout << "No Path Exists << endl;
+        cout << "No Path Exists" << endl;
         return -1;
     }
     

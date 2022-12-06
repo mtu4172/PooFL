@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <set>
 #include <random>
+#include "Trie.h"
 
 using namespace std;
 
@@ -28,7 +29,7 @@ struct GraphNode {
 struct Graph {
     unordered_map<string, GraphNode*> nodes; // map of names to nodes (easier searching)
     vector<string> names; // just a list of names
-
+    Trie trie = Trie();
     int size;
     Graph() {
         size = 0;
@@ -39,8 +40,9 @@ struct Graph {
     }
     
     ~Graph() {
-        nodes.clear();
-        names.clear();
+        for (auto iter : nodes) {
+
+        }
         size = 0;
     }
 
@@ -49,6 +51,7 @@ struct Graph {
             return;
         }
         names.push_back(name);
+        trie.insert(name);
         nodes[name] = new GraphNode(name, priv, temp, clean, avgoverall, bath);
         size++;
     }
@@ -70,7 +73,7 @@ struct Graph {
         vector<string> listN;
         if(type == "Cleaniness") {
             for(int i = 0; i < names.size();i++) {
-                if(nodes[names[i]]->bath == true && nodes[names[i]]->clean > rating) {
+                if(nodes[names[i]]->bath && nodes[names[i]]->clean > rating) {
                     listN.push_back(names[i]);
                 }
             }
@@ -79,7 +82,7 @@ struct Graph {
         if(type == "Privacy")
         {
             for(int i = 0; i < names.size();i++) {
-                if(nodes[names[i]]->bath == true && nodes[names[i]]->priv > rating) {
+                if(nodes[names[i]]->bath && nodes[names[i]]->priv > rating) {
                     listN.push_back(names[i]);
                 }
             }
@@ -88,7 +91,7 @@ struct Graph {
         if(type == "Temperature")
         {
             for(int i = 0; i < names.size();i++) {
-                if(nodes[names[i]]->bath == true && nodes[names[i]]->temp > rating) {
+                if(nodes[names[i]]->bath && nodes[names[i]]->temp > rating) {
                     listN.push_back(names[i]);
                 }
             }
@@ -97,7 +100,7 @@ struct Graph {
         if(type == "Overall")
         {
             for(int i = 0; i < names.size();i++) {
-                if(nodes[names[i]]->bath == true && nodes[names[i]]->avgoverall > rating) {
+                if(nodes[names[i]]->bath && nodes[names[i]]->avgoverall > rating) {
                     listN.push_back(names[i]);
                 }
             }

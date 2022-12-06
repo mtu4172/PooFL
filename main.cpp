@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "Graph.h"
 #include "Trie.h"
 
@@ -8,9 +9,9 @@ int main() {
     ifstream theFile("DSAProject3Data.csv");
 	if (theFile.is_open())
 	{
-		string firstLine;
+        cout << "file opened" << endl;
+        string firstLine;
 		getline(theFile, firstLine, '\r');
-
 		for (int i = 0; i < 100000; i++)
 		{
 			getline(theFile, firstLine, '\r');
@@ -84,25 +85,25 @@ int main() {
 		vector<string> desiredbathrooms;
 		if (pref1 == 1)
 		{
-			cout << "What is your desired quality rating for the Cleaniness(1-100)?" << endl;
+			cout << "What is your desired quality rating for the Cleaniness (1-100)?" << endl;
 			cin >> rating;
 			desiredbathrooms = g.DesiredRating("Cleaniness", rating);
 		}
 		if (pref1 == 2)
 		{
-			cout << "What is your desired quality rating for the Privacy(1-100)?" << endl;
+			cout << "What is your desired quality rating for the Privacy (1-100)?" << endl;
 			cin >> rating;
 			desiredbathrooms = g.DesiredRating("Privacy", rating);
 		}
 		if (pref1 == 3)
 		{
-			cout << "What is your desired quality rating for the Temperature(1-100)?" << endl;
+			cout << "What is your desired quality rating for the Temperature (1-100)?" << endl;
 			cin >> rating;
 			desiredbathrooms = g.DesiredRating("Temperature", rating);
 		}
 		if (pref1 == 4)
 		{
-			cout << "What is your desired Overall quality rating(1-100)?" << endl;
+			cout << "What is your desired Overall quality rating (1-100)?" << endl;
 			cin >> rating;
 			desiredbathrooms = g.DesiredRating("Overall", rating);
 		}
@@ -123,7 +124,6 @@ int main() {
 		cout << "What is the name of the bathroom that you would like to check the stats of?" << endl;
 		string brname;
 		cin >> brname;
-
 	}
     return 0;
 }
