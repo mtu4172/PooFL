@@ -54,67 +54,40 @@ int main() {
 
 	}
 	theFile.close();
-    for (const auto& iter : g.nodes) {
-        cout << iter.first << ": ";
-        for (auto it : iter.second->neighbors)
-            cout << it.first->name <<" " << it.second<< "  ";
-        cout << endl;
-    }
 	
-	
+  	//menu asking what selection you want
 	cout << "Welcome to PooFL! " << endl;
-	cout << "What would you like to do?" << endl;
-	cout << "1. Find the closest bathroom to me based off my needs - Dijkstra" << endl;
-	cout << "2. Find the closest bathroom to me based off my needs - Bellman-Ford" << endl;
-	int choice;
-	cin >> choice;
-		cout << "Please Enter Your Current Location: " << endl;
-		string location;
-		cin >> location;
-		cout << "What aspect of a bathroom is most important to you?" << endl;
-		cout << "1. Cleanliness" << endl;
-		cout << "2. Privacy" << endl;
-		cout << "3. Temperature" << endl;
-		cout << "4. All" << endl;
-		int pref1;
-		cin >> pref1;
-		int rating;
-		vector<string> desiredbathrooms;
-		if (pref1 == 1)
-		{
-			cout << "What is your desired quality rating for the Cleanliness(1-100)?" << endl;
-			cin >> rating;
-			desiredbathrooms = g.DesiredRating("Cleanliness", rating);
-		}
-		if (pref1 == 2)
-		{
-			cout << "What is your desired quality rating for the Privacy(1-100)?" << endl;
-			cin >> rating;
-			desiredbathrooms = g.DesiredRating("Privacy", rating);
-		}
-		if (pref1 == 3)
-		{
-			cout << "What is your desired quality rating for the Temperature(1-100)?" << endl;
-			cin >> rating;
-			desiredbathrooms = g.DesiredRating("Temperature", rating);
-		}
-		if (pref1 == 4)
-		{
-			cout << "What is your desired Overall quality rating(1-100)?" << endl;
-			cin >> rating;
-			desiredbathrooms = g.DesiredRating("Overall", rating);
-		}
-		
+	cout << "What aspect of a bathroom is most important to you?" << endl;
+	cout << "---------------------------------------------------" << endl;
+	cout << "1. Cleaniness (A clean bathroom is important!)" << endl;
+	cout << "2. Privacy (Everyone wants their privacy! Go YOU!)" << endl;
+	cout << "3. Temperature (No one likes an icky bathroom!)" << endl;
+	cout << "4. All (You have a lot of demands don't you...)" << endl;
 
-		if (desiredbathrooms.size() == 0)
-			cout << "There are no bathrooms nearby that align with your preferences." << endl;
-		else {
-			cout << "These are the closest locations with bathrooms that satisfy your desired preferences!" << endl;
-			for (int j = 0; j < desiredbathrooms.size(); j++) {
-				cout << desiredbathrooms[j] << endl;
-			}
-		}
+	int selection;
+	cin >> selection;
 
+	int rating;
+
+	string currentLocation;
+
+
+	cout << "Please input a minimum rating(0-100): ";
+	cin >> rating;
+
+	int rating2 = rating;
+	int select = selection;
+
+	if(selection == 1)
+	{
+		vector<string> bathrooms;
+		bathrooms = g.DesiredRating(select, rating2);
+		for(auto it : bathrooms)
+		{
+			int distance = g.Dijktras("GENDER COMMONS", it);
+			cout << it << "'s" << " distance from " << "you is" << ": " << distance << " and its rating is " << g.nodes[it]->clean << endl;
+		}
+	}
 	
     return 0;
 }
