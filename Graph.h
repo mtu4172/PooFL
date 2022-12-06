@@ -33,6 +33,16 @@ struct Graph {
     Graph() {
         size = 0;
     }
+    
+    Graph& operator=(const Graph& rhs) {
+        return *this;
+    }
+    
+    ~Graph() {
+        nodes.clear();
+        names.clear();
+        size = 0;
+    }
 
     void AddNode(string name, int priv, int temp, int clean, int avgoverall, bool bath) {
         if (nodes[name] != nullptr) { // no duplicate names
