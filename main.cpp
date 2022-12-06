@@ -60,5 +60,70 @@ int main() {
             cout << it.first->name <<" " << it.second<< "  ";
         cout << endl;
     }
+	
+	
+	cout << "Welcome to PooFL! " << endl;
+	cout << "What would you like to do?" << endl;
+	cout << "1. Find the closest bathroom to me based off my needs" << endl;
+	cout << "2. Check Stats of a Bathroom" << endl;
+	int choice;
+	cin >> choice;
+	if (choice == 1)
+	{
+		cout << "Please Enter Your Current Location: " << endl;
+		string location;
+		cin >> location;
+		cout << "What aspect of a bathroom is most important to you?" << endl;
+		cout << "1. Cleaniness" << endl;
+		cout << "2. Privacy" << endl;
+		cout << "3. Temperature" << endl;
+		cout << "4. All" << endl;
+		int pref1;
+		cin >> pref1;
+		int rating;
+		vector<string> desiredbathrooms;
+		if (pref1 == 1)
+		{
+			cout << "What is your desired quality rating for the Cleaniness(1-100)?" << endl;
+			cin >> rating;
+			desiredbathrooms = g.DesiredRating("Cleaniness", rating);
+		}
+		if (pref1 == 2)
+		{
+			cout << "What is your desired quality rating for the Privacy(1-100)?" << endl;
+			cin >> rating;
+			desiredbathrooms = g.DesiredRating("Privacy", rating);
+		}
+		if (pref1 == 3)
+		{
+			cout << "What is your desired quality rating for the Temperature(1-100)?" << endl;
+			cin >> rating;
+			desiredbathrooms = g.DesiredRating("Temperature", rating);
+		}
+		if (pref1 == 4)
+		{
+			cout << "What is your desired Overall quality rating(1-100)?" << endl;
+			cin >> rating;
+			desiredbathrooms = g.DesiredRating("Overall", rating);
+		}
+		
+
+		if (desiredbathrooms.size() == 0)
+			cout << "There are no bathrooms nearby that align with your preferences." << endl;
+		else {
+			cout << "These are the closest locations with bathrooms that satisfy your desired preferences!" << endl;
+			for (int j = 0; j < desiredbathrooms.size(); j++) {
+				cout << desiredbathrooms[j] << endl;
+			}
+		}
+
+	}
+	else
+	{
+		cout << "What is the name of the bathroom that you would like to check the stats of?" << endl;
+		string brname;
+		cin >> brname;
+
+	}
     return 0;
 }
