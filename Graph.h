@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <set>
 #include <random>
 #include "Trie.h"
@@ -41,7 +42,7 @@ struct Graph {
     
     ~Graph() {
         for (auto iter : nodes) {
-
+            delete iter.second;
         }
         size = 0;
     }
@@ -69,46 +70,46 @@ struct Graph {
         }
     }
     
-int Dijktras(string source_, string destination_)
-{
-    GraphNode* source = this->nodes[source_]; //whatever source graphnode we pass in
-    unordered_set<GraphNode*> alreadyVisited; //nodes that we have visited already
-    vector<string> path;
-    alreadyVisited.insert(source); //insert into set 
-    int totalDistance = 0;
-    bool found = false;
-    while(found != true && alreadyVisited.size() < this->size) //go through entire graph
+    int Dijkstras (string source_, string destination_)
     {
-        GraphNode* leastEdge = SmallestEdge(source->neighbors, alreadyVisited, totalDistance);
-        path.push_back(leastEdge->name);
-        source = leastEdge;
-        alreadyVisited.insert(leastEdge);
-        if(leastEdge->name == destination_) found = true;
-    }
-    for(auto it : path)
-    {
-        cout << it <<  "-> ";
-    }
-    return totalDistance;
-}
-
-GraphNode* SmallestEdge(vector<pair<GraphNode*, int>> neighbors_, unordered_set<GraphNode*>& alreadyVisited, int& totalDistance)
-{
-    if(neighbors_.size() == 0) return nullptr;
-    int smallEdge = neighbors_.at(0).second;
-    GraphNode* leastEdge = neighbors_.at(0).first;
-    for(int i = 1; i < neighbors_.size(); i ++)
-    {
-        GraphNode* current = neighbors_.at(i).first;
-        if(alreadyVisited.find(current) == alreadyVisited.end() && neighbors_.at(i).second < smallEdge)
+        GraphNode* source = this->nodes[source_]; //whatever source graphnode we pass in
+        unordered_set<GraphNode*> alreadyVisited; //nodes that we have visited already
+        vector<string> path;
+        alreadyVisited.insert(source); //insert into set
+        int totalDistance = 0;
+        bool found = false;
+        while(!found && alreadyVisited.size() < this->size) //go through entire graph
         {
-            leastEdge = current;
-            smallEdge = neighbors_.at(i).second;
+            GraphNode* leastEdge = SmallestEdge(source->neighbors, alreadyVisited, totalDistance);
+            path.push_back(leastEdge->name);
+            source = leastEdge;
+            alreadyVisited.insert(leastEdge);
+            if(leastEdge->name == destination_) found = true;
         }
+        for(auto it : path)
+        {
+            cout << it <<  "-> ";
+        }
+        return totalDistance;
     }
-    totalDistance += smallEdge;
-    return leastEdge;
-}
+
+    GraphNode* SmallestEdge(vector<pair<GraphNode*, int>> neighbors_, unordered_set<GraphNode*>& alreadyVisited, int& totalDistance)
+    {
+        if(neighbors_.size() == 0) return nullptr;
+        int smallEdge = neighbors_.at(0).second;
+        GraphNode* leastEdge = neighbors_.at(0).first;
+        for(int i = 1; i < neighbors_.size(); i ++)
+        {
+            GraphNode* current = neighbors_.at(i).first;
+            if(alreadyVisited.find(current) == alreadyVisited.end() && neighbors_.at(i).second < smallEdge)
+            {
+                leastEdge = current;
+                smallEdge = neighbors_.at(i).second;
+            }
+        }
+        totalDistance += smallEdge;
+        return leastEdge;
+    }
     
     vector<string> DesiredRating(string type, int rating) //checks rating type, rating, and if it is a bathroom
     {
