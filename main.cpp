@@ -115,6 +115,7 @@ int main() {
     }
     if (choice == 2) {
         string word;
+        cout << "Please enter a one word." << endl;
         cout << "Search query: " << endl;
         cin >> word;
         vector<string> bathrooms = g.trie.prefix(word);
