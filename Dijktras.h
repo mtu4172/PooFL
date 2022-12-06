@@ -14,7 +14,7 @@ int Dijktras(Graph* g, string source_, string destination_)
     alreadyVisited.insert(source); //insert into set 
     int totalDistance = 0;
     bool found = false;
-    while(found != true) //go through entire graph
+    while(found != true && alreadyVisited.size() < g.size()) //go through entire graph
     {
         GraphNode* leastEdge = SmallestEdge(source->neighbors, alreadyVisited, totalDistance);
         path.push_back(leastEdge->name);
@@ -22,6 +22,13 @@ int Dijktras(Graph* g, string source_, string destination_)
         alreadyVisited.insert(leastEdge);
         if(leastEdge->name == destination_) found = true;
     }
+    
+    if(found == false)
+    {
+        cout << "No Path Exists << endl;
+        return -1;
+    }
+    
     for(auto it : path)
     {
         cout << it <<  "-> ";
