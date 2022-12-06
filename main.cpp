@@ -65,7 +65,7 @@ int main() {
 	cout << "Welcome to PooFL! " << endl;
 	cout << "What would you like to do?" << endl;
 	cout << "1. Find the closest bathroom to me based off my needs - Dijkstra" << endl;
-	cout << "2. Find the closest bathroom to me based off my needs - Bellman's Ford" << endl;
+	cout << "2. Find the closest bathroom to me based off my needs - Bellman-Ford" << endl;
 	int choice;
 	cin >> choice;
 		cout << "Please Enter Your Current Location: " << endl;
