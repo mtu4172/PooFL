@@ -64,12 +64,10 @@ int main() {
 	
 	cout << "Welcome to PooFL! " << endl;
 	cout << "What would you like to do?" << endl;
-	cout << "1. Find the closest bathroom to me based off my needs" << endl;
-	cout << "2. Check Stats of a Bathroom" << endl;
+	cout << "1. Find the closest bathroom to me based off my needs - Djiktras" << endl;
+	cout << "2. Find the closest bathroom to me based off my needs - Bellman's Ford" << endl;
 	int choice;
 	cin >> choice;
-	if (choice == 1)
-	{
 		cout << "Please Enter Your Current Location: " << endl;
 		string location;
 		cin >> location;
@@ -117,13 +115,6 @@ int main() {
 			}
 		}
 
-	}
-	else
-	{
-		cout << "What is the name of the bathroom that you would like to check the stats of?" << endl;
-		string brname;
-		cin >> brname;
-
-	}
+	
     return 0;
 }
